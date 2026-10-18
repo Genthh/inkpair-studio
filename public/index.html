@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Pair two colors, preview type and check WCAG text contrast."
+    />
+    <title>Inkpair Studio — Color contrast workbench</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="model.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <span class="mark" aria-hidden="true"></span
+      ><strong>Inkpair Studio</strong>
+    </header>
+    <main>
+      <div class="intro">
+        <h1>Color <em>proof.</em></h1>
+        <p>Set the ink and paper to see how your type holds up.</p>
+      </div>
+      <section class="bench" aria-label="Color workbench">
+        <div class="sample" id="sample" aria-label="Live type sample">
+          <span class="caption">Type specimen</span>
+          <span class="specimen" aria-hidden="true">Aa</span>
+          <p>Letters on paper.</p>
+        </div>
+        <div class="tools">
+          <h2>Color pair</h2>
+          <div class="field">
+            <label for="ink-hex">Ink</label>
+            <div class="color-entry">
+              <input
+                id="ink-picker"
+                type="color"
+                aria-label="Pick ink color"
+                value="#302521"
+              /><input
+                id="ink-hex"
+                type="text"
+                value="#302521"
+                maxlength="7"
+                spellcheck="false"
+                autocomplete="off"
+                aria-describedby="guidance"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="paper-hex">Paper</label>
+            <div class="color-entry">
+              <input
+                id="paper-picker"
+                type="color"
+                aria-label="Pick paper color"
+                value="#F4CCBB"
+              /><input
+                id="paper-hex"
+                type="text"
+                value="#F4CCBB"
+                maxlength="7"
+                spellcheck="false"
+                autocomplete="off"
+                aria-describedby="guidance"
+              />
+            </div>
+          </div>
+          <p id="guidance" role="status"></p>
+          <button id="swap" type="button">
+            Swap colors <span aria-hidden="true">⇄</span>
+          </button>
+          <label for="preset">Try a pair</label>
+          <select id="preset">
+            <option value="custom" hidden>Custom pair</option>
+            <option value="clay" selected>Clay &amp; charcoal</option>
+            <option value="tide">Sea glass &amp; ink</option>
+            <option value="night">Midnight &amp; linen</option>
+            <option value="mist">Fog &amp; silver</option>
+          </select>
+        </div>
+      </section>
+      <section class="report" aria-label="Contrast results">
+        <div>
+          <h2>Contrast ratio</h2>
+          <output id="ratio" aria-live="polite"></output>
+        </div>
+        <div>
+          <h2>Text contrast checks</h2>
+          <ul id="checks"></ul>
+          <p class="explanation">
+            Large text starts at 24 CSS pixels, or about 18.7 pixels when bold.
+            <a
+              href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html"
+              >WCAG guidance</a
+            >
+          </p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
