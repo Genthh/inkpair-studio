@@ -8,28 +8,33 @@
       content="Pair two colors, preview type and check WCAG text contrast."
     />
     <title>Inkpair Studio — Color contrast workbench</title>
+    <link rel="stylesheet" href="fonts/type.css" />
     <link rel="stylesheet" href="style.css" />
     <script src="model.js" defer></script>
     <script src="app.js" defer></script>
   </head>
   <body>
-    <header>
-      <span class="mark" aria-hidden="true"></span
-      ><strong>Inkpair Studio</strong>
+    <header class="mast">
+      <strong
+        ><span class="mark" aria-hidden="true"></span> Inkpair Studio</strong
+      >
+      <span class="inks" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
     </header>
     <main>
       <div class="intro">
-        <h1>Color <em>proof.</em></h1>
-        <p>Set the ink and paper to see how your type holds up.</p>
+        <h1>Contrast atlas<span>.</span></h1>
+        <p>Pair an ink with a paper. Check how they read together.</p>
       </div>
       <section class="bench" aria-label="Color workbench">
         <div class="sample" id="sample" aria-label="Live type sample">
           <span class="caption">Type specimen</span>
-          <span class="specimen" aria-hidden="true">Aa</span>
+          <div class="specimen" aria-hidden="true">
+            <span>Aa</span><i class="screen"></i>
+          </div>
           <p>Letters on paper.</p>
         </div>
         <div class="tools">
-          <h2>Color pair</h2>
+          <h2>Mix your pair</h2>
           <div class="field">
             <label for="ink-hex">Ink</label>
             <div class="color-entry">
@@ -72,7 +77,7 @@
           <button id="swap" type="button">
             Swap colors <span aria-hidden="true">⇄</span>
           </button>
-          <label for="preset">Try a pair</label>
+          <label for="preset">Preset pair</label>
           <select id="preset">
             <option value="custom" hidden>Custom pair</option>
             <option value="clay" selected>Clay &amp; charcoal</option>
