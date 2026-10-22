@@ -88,5 +88,12 @@
   byId("swap").addEventListener("click", () =>
     setPair(colors.paper, colors.ink),
   );
+  globalThis.setupInkLibrary({
+    current: () => ({
+      ink: normalizeHex(byId("ink-hex").value),
+      paper: normalizeHex(byId("paper-hex").value),
+    }),
+    apply: setPair,
+  });
   setPair(...presets.clay);
 })();

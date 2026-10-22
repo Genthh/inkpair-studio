@@ -2,6 +2,8 @@
 
 Check foreground and background contrast, compare text sizes and swap color pairs in a live specimen.
 
+Save named swatches in the browser collection, apply or remove saved pairs, and download the current pair as CSS custom properties.
+
 ## Run locally
 
 Use Node.js 22 or newer to run `node scripts/verify.mjs`. To launch a local preview, run `python3 -m http.server 8080 --bind 127.0.0.1 --directory public` and open http://127.0.0.1:8080.

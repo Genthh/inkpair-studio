@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="fonts/type.css" />
     <link rel="stylesheet" href="style.css" />
     <script src="model.js" defer></script>
+    <script src="library.js" defer></script>
     <script src="app.js" defer></script>
   </head>
   <body>
@@ -103,6 +104,25 @@
             >
           </p>
         </div>
+      </section>
+      <section class="library" aria-labelledby="library-title">
+        <div class="library-head">
+          <h2 id="library-title">Swatch collection</h2>
+          <p>
+            Keep named pairs in this browser. Export the current ink and paper
+            as CSS variables.
+          </p>
+        </div>
+        <form id="save-form">
+          <label for="pair-name">Pair name</label>
+          <div class="library-controls">
+            <input id="pair-name" type="text" maxlength="60" required />
+            <button id="save-pair" type="submit">Save pair</button>
+            <button id="export-css" type="button">Download CSS</button>
+          </div>
+        </form>
+        <p id="library-status" role="status"></p>
+        <div id="collection"></div>
       </section>
     </main>
   </body>
