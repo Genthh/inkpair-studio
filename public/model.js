@@ -89,6 +89,57 @@ const InkPair = (() => {
     ].join("\n");
   }
 
+  function repairContrast(ink, paper, target, locked) {
+    if (!["ink", "paper"].includes(locked) || ![3, 4.5, 7].includes(target)) {
+      throw new RangeError("Select a valid target and locked color.");
+    }
+    const fixed = locked === "ink" ? ink : paper;
+    const editable = normalizeHex(locked === "ink" ? paper : ink);
+    const before = ratio(ink, paper);
+    if (before >= target) return { state: "met", before };
+
+    const channels = editable
+      .slice(1)
+      .match(/../g)
+      .map((part) => parseInt(part, 16));
+    let best;
+    for (const endpoint of [0, 255]) {
+      const extreme = endpoint === 0 ? "#000000" : "#FFFFFF";
+      if (ratio(extreme, fixed) < target) continue;
+      const mix = (amount) =>
+        channels.map((channel) =>
+          Math.round(channel + ((endpoint - channel) * amount) / 255),
+        );
+      const asHex = (values) =>
+        "#" +
+        values
+          .map((channel) => channel.toString(16).padStart(2, "0"))
+          .join("")
+          .toUpperCase();
+      let first = 1;
+      let last = 255;
+      while (first < last) {
+        const middle = Math.floor((first + last) / 2);
+        if (ratio(asHex(mix(middle)), fixed) >= target) last = middle;
+        else first = middle + 1;
+      }
+      const result = mix(first);
+      const distance = result.reduce(
+        (sum, channel, index) => sum + (channel - channels[index]) ** 2,
+        0,
+      );
+      if (!best || distance < best.distance)
+        best = { color: asHex(result), distance };
+    }
+    if (!best) return { state: "impossible", before };
+    return {
+      state: "suggested",
+      before,
+      after: ratio(best.color, fixed),
+      color: best.color,
+    };
+  }
+
   return {
     normalizeHex,
     luminance,
@@ -98,6 +149,7 @@ const InkPair = (() => {
     addPair,
     readLibrary,
     cssTokens,
+    repairContrast,
   };
 })();
 

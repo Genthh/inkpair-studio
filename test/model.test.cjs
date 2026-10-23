@@ -81,3 +81,38 @@ test("CSS handoff uses only normalized color tokens", () => {
   );
   assert.throws(() => cssTokens(null, "#345"));
 });
+
+const { repairContrast } = require("../public/model.js");
+
+test("repairs failing pairs against the exact unrounded target", () => {
+  for (const locked of ["ink", "paper"]) {
+    const original = ["#777777", "#FFFFFF"];
+    const result = repairContrast(...original, 4.5, locked);
+    assert.equal(result.state, "suggested");
+    assert.ok(result.before < 4.5);
+    assert.ok(result.after >= 4.5);
+    assert.equal(
+      result.after,
+      ratio(result.color, original[locked === "ink" ? 0 : 1]),
+    );
+  }
+  for (const target of [3, 4.5, 7]) {
+    for (const fixed of ["#f2a345", "#885577", "#161616", "#c6948f"]) {
+      const result = repairContrast(fixed, fixed, target, "paper");
+      if (result.state === "impossible") {
+        assert.ok(
+          Math.max(ratio("#000", fixed), ratio("#fff", fixed)) < target,
+        );
+      } else {
+        assert.equal(result.state, "suggested");
+        assert.ok(ratio(result.color, fixed) >= target);
+      }
+    }
+  }
+});
+
+test("recognizes already compliant and unattainable targets", () => {
+  assert.equal(repairContrast("#fff", "#000", 7, "ink").state, "met");
+  assert.equal(repairContrast("#777", "#777", 7, "paper").state, "impossible");
+  assert.throws(() => repairContrast("#abc", "#fff", 6, "paper"));
+});
