@@ -10,8 +10,10 @@
     <title>Inkpair Studio — Color contrast workbench</title>
     <link rel="stylesheet" href="fonts/type.css" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="repair.css" />
     <script src="model.js" defer></script>
     <script src="library.js" defer></script>
+    <script src="repair.js" defer></script>
     <script src="app.js" defer></script>
   </head>
   <body>
@@ -103,6 +105,36 @@
               >WCAG guidance</a
             >
           </p>
+        </div>
+      </section>
+      <section class="repair" aria-labelledby="repair-title">
+        <div>
+          <h2 id="repair-title">Contrast repair</h2>
+          <p>
+            Keep one color and find a lighter or darker match for your target.
+          </p>
+        </div>
+        <div class="repair-controls">
+          <label
+            >Minimum ratio<select id="repair-target">
+              <option value="3">3:1</option>
+              <option value="4.5" selected>4.5:1</option>
+              <option value="7">7:1</option>
+            </select></label
+          >
+          <label
+            >Keep this color<select id="repair-lock">
+              <option value="paper">Paper</option>
+              <option value="ink">Ink</option>
+            </select></label
+          >
+        </div>
+        <div class="repair-result">
+          <span id="repair-chip" aria-hidden="true" hidden></span>
+          <p id="repair-note" role="status"></p>
+          <button id="repair-apply" type="button" disabled>
+            Apply suggestion
+          </button>
         </div>
       </section>
       <section class="library" aria-labelledby="library-title">

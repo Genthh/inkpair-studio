@@ -2,6 +2,8 @@
 
 Check foreground and background contrast, compare text sizes and swap color pairs in a live specimen.
 
+Lock the ink or paper and choose a 3:1, 4.5:1 or 7:1 target to preview a contrast repair. Apply the suggested color to the current pair.
+
 Save named swatches in the browser collection, apply or remove saved pairs, and download the current pair as CSS custom properties.
 
 ## Run locally

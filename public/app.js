@@ -14,7 +14,10 @@
   const preset = byId("preset");
   const sample = byId("sample");
 
+  const renderRepair = globalThis.setupContrastRepair(setPair);
+
   function render() {
+    renderRepair();
     sample.style.color = colors.ink;
     sample.style.backgroundColor = colors.paper;
     const value = ratio(colors.ink, colors.paper);
@@ -70,7 +73,7 @@
         colors[field] = value;
         picker.value = value;
         render();
-      }
+      } else renderRepair();
     });
     hex.addEventListener("blur", () => {
       const value = normalizeHex(hex.value);
